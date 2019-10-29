@@ -29,7 +29,7 @@ public class ProdutoDao {
         con = Factory.getConnection();
 
         // inserir endereço
-        sql = "insert into crud_produto.especificacoes (fabricante, cor, sistema, detalhes) values (?,?,?,? )";
+        sql = "insert into produtos.especificacoes (fabricante, cor, sistema, detalhes) values (?,?,?,? )";
 
         // informa ao jdbc que o codigo gerado deverá ser retornado
         st = con.prepareStatement(sql, PreparedStatement.RETURN_GENERATED_KEYS);
@@ -50,7 +50,7 @@ public class ProdutoDao {
         }
         // recuperar código gerado
 
-        sql = "insert into crud_produto.produtos (nome, preco, especificacao) values (?,?,?)";
+        sql = "insert into produtos.produtos (nome, preco, especificacao) values (?,?,?)";
 
         st = con.prepareStatement(sql);
 
@@ -67,7 +67,7 @@ public class ProdutoDao {
     public List<Produto> listar() throws Exception {
         List<Produto> produtos = new ArrayList<>();
         con = Factory.getConnection();
-        sql = "select p.*, e.* from crud_produto.produtos p, crud_produto.especificacoes e where p.especificacao = e.codigo";
+        sql = "select p.*, e.* from produtos.produtos p, produtos.especificacoes e where p.especificacao = e.codigo";
         st = con.prepareStatement(sql);
         ResultSet rs = st.executeQuery();
         while (rs.next()) {
@@ -93,7 +93,7 @@ public class ProdutoDao {
     public Produto buscar(int codigo) throws Exception {
         Produto p = null;
         con = Factory.getConnection();
-        sql = "select p.*, e.* from crud_produto.produtos p, crud_produto.especificacoes e where p.codigo = ? and p.especificacao = e.codigo";
+        sql = "select p.*, e.* from produtos.produtos p, produtos.especificacoes e where p.codigo = ? and p.especificacao = e.codigo";
         st = con.prepareStatement(sql);
         st.setInt(1, codigo);
         ResultSet rs = st.executeQuery();
@@ -119,7 +119,7 @@ public class ProdutoDao {
     public void remover(Produto produto) throws Exception {
         con = Factory.getConnection();
 
-        sql = "delete from crud_produto.produtos where codigo = ?";
+        sql = "delete from produtos.produtos where codigo = ?";
 
         st = con.prepareStatement(sql);
 
@@ -133,7 +133,7 @@ public class ProdutoDao {
     public void editar(Produto produto) throws Exception{
         con = Factory.getConnection();
 
-        sql = "update crud_produto.produtos set nome = ?, preco = ? where codigo = ?";
+        sql = "update produtos.produtos set nome = ?, preco = ? where codigo = ?";
 
         st = con.prepareStatement(sql);
 
@@ -143,7 +143,7 @@ public class ProdutoDao {
 
         st.executeUpdate();
 
-        sql = "update crud_produto.especificacoes set fabricante = ?, cor = ?, sistema = ?, detalhes = ? where codigo = ?";
+        sql = "update produtos.especificacoes set fabricante = ?, cor = ?, sistema = ?, detalhes = ? where codigo = ?";
 
         st = con.prepareStatement(sql);
 

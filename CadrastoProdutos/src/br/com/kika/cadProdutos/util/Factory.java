@@ -14,7 +14,7 @@ import java.sql.DriverManager;
 
 public class Factory {
 
-    private static final String URL = "jdbc:postgresql://localhost:5432/map";
+    private static final String URL = "jdbc:postgresql://localhost:5432/cadProdutos";
     private static final String USUARIO = "postgres";
     private static final String SENHA = "admin";
 
@@ -26,4 +26,10 @@ public class Factory {
             return null;
         }
     }
+    
+    public static void main(String[] args) {
+        Factory.getConnection();
+        System.out.println("Acertou!");
+    }
 } 
+
