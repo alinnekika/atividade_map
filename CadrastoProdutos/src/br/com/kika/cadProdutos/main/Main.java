@@ -64,7 +64,7 @@ public class Main {
                 System.out.println("Produto salvo com sucesso!");
             }
             else if(op.equals("2")){
-                System.out.println("\n---- | EDITAR | ----");
+                System.out.println("\n | EDITAR | -");
 
                 System.out.print("Informe o código: ");
                 int codigo = Integer.parseInt(input.nextLine());
@@ -106,7 +106,7 @@ public class Main {
                 }
             }
             else if(op.equals("3")){
-                System.out.println("\n--- | EXCLUIR | ---");
+                System.out.println("\n | EXCLUIR | ");
 
 
                 System.out.print("Informe o código: ");
@@ -123,7 +123,7 @@ public class Main {
                 }
             }
             else if(op.equals("4")){
-                System.out.println("\n---- | CONSULTAR | -----");
+                System.out.println("\n | CONSULTAR | ");
 
 
                 List<Produto> produtos = dao.listar();

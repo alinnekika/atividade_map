@@ -28,17 +28,12 @@ public class ProdutoDao {
     public void inserir(Produto produto) throws Exception {
         con = Factory.getConnection();
 
-        // inserir endereço
         sql = "insert into produtos.especificacoes (fabricante, cor, sistema, detalhes) values (?,?,?,? )";
-
-        // informa ao jdbc que o codigo gerado deverá ser retornado
         st = con.prepareStatement(sql, PreparedStatement.RETURN_GENERATED_KEYS);
-
         st.setString(1, produto.getEspecificacao().getFabricante());
         st.setString(2, produto.getEspecificacao().getCor());
         st.setString(3, produto.getEspecificacao().getSistema());
         st.setString(4, produto.getEspecificacao().getDetalhes());
-
         st.executeUpdate();
 
         rs = st.getGeneratedKeys();
@@ -48,19 +43,14 @@ public class ProdutoDao {
         if (rs.next()) {
             codigoEspecificacao = rs.getInt(1);
         }
-        // recuperar código gerado
 
         sql = "insert into produtos.produtos (nome, preco, especificacao) values (?,?,?)";
 
         st = con.prepareStatement(sql);
-
         st.setString(1, produto.getNome());
         st.setDouble(2, produto.getPreco());
-
         st.setInt(3, codigoEspecificacao);
-
         st.executeUpdate();
-
         con.close();
     }
 
@@ -104,7 +94,6 @@ public class ProdutoDao {
             p.setCodigo(rs.getInt("codigo"));
             p.setNome(rs.getString("nome"));
             p.setPreco(rs.getInt("preco"));
-
             p.getEspecificacao().setCodigo(rs.getInt("especificacao"));
             p.getEspecificacao().setFabricante(rs.getString("fabricante"));
             p.getEspecificacao().setCor(rs.getString("cor"));
@@ -122,9 +111,7 @@ public class ProdutoDao {
         sql = "delete from produtos.produtos where codigo = ?";
 
         st = con.prepareStatement(sql);
-
         st.setInt(1, produto.getCodigo());
-
         st.executeUpdate();
 
         con.close();
@@ -136,17 +123,14 @@ public class ProdutoDao {
         sql = "update produtos.produtos set nome = ?, preco = ? where codigo = ?";
 
         st = con.prepareStatement(sql);
-
         st.setString(1, produto.getNome());
         st.setFloat(2, produto.getPreco());
         st.setInt(3, produto.getCodigo());
-
         st.executeUpdate();
 
         sql = "update produtos.especificacoes set fabricante = ?, cor = ?, sistema = ?, detalhes = ? where codigo = ?";
 
         st = con.prepareStatement(sql);
-
         st.setString(1, produto.getEspecificacao().getFabricante());
         st.setString(2, produto.getEspecificacao().getCor());
         st.setString(3, produto.getEspecificacao().getSistema());
